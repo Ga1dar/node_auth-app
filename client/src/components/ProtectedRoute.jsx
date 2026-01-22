@@ -1,14 +1,12 @@
-'use strict'
+'use strict';
 
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
-export default function ProtectedRoute({ children }) {
-  const token = localStorage.getItem('accessToken');
-  const isAuthed = Boolean(token);
-
+export default function ProtectedRoute({ isAuthed, children }) {
   if (!isAuthed) {
     return <Navigate to="/login" replace />;
   }
 
   return children;
 }
+

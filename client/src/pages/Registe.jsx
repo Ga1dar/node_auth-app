@@ -10,18 +10,18 @@ export default function Register() {
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
 
-  const onSubmit =async (e) => {
-    e.preventDefault()
-    setError('')
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
     if (!name.trim() || !email.trim() || !password.trim()) {
-      setError('Fill in the E-Mail, name, password');
+      setError('Fill in name, email, password');
       return;
     }
 
     if (password !== confirmation) {
-      setError('Password do not match')
-      return
+      setError('Passwords do not match');
+      return;
     }
 
     try {
@@ -31,9 +31,9 @@ export default function Register() {
       });
       setDone(true);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Register failed');
     }
-  }
+  };
 
   if (done) {
     return (
@@ -52,25 +52,20 @@ export default function Register() {
       <form onSubmit={onSubmit} className="table">
         <input
           className="field"
-          type="Name"
+          type="text"
+          placeholder="Name"
           value={name}
           onChange={e => setName(e.target.value)}
         />
 
         <input
           className="field"
-          type="Email"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
 
-        {/* <input
-          className="field"
-          placeholder="Email"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        /> */}
         <input
           className="field"
           type="password"
@@ -91,10 +86,9 @@ export default function Register() {
 
         <button type="submit">Create account</button>
       </form>
-      <div className="question">
-        Have you account?
-      </div>
-      <Link to="/login" className="link">Enter</Link>
+
+      <div className="question">Have an account?</div>
+      <Link to="/login" className="link">Login</Link>
     </div>
-  )
+  );
 }

@@ -70,6 +70,7 @@ export default function Login({ onLoggedIn }) {
         No account?
       </p>
       <Link to="/register" className="linkRegistration">Registration</Link>
+      <Link to="/forgot-password">Forgot password?</Link>
     </div>
   )
 }
