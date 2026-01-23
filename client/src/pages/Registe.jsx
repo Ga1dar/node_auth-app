@@ -73,6 +73,10 @@ export default function Register() {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        <p className="hint">
+          Password rules: at least 8 characters,
+          use uppercase and lowercase letters and numbers.
+        </p>
 
         <input
           className="field"

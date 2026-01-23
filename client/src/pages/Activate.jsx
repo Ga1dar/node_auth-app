@@ -1,11 +1,12 @@
 'use strict';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from '../api';
 
 export default function Activate() {
   const { token } = useParams();
-  const [status, setStatus] = useState('loading'); // loading | ok | error
+  const navigate = useNavigate();
+  const [status, setStatus] = useState('loading');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -13,12 +14,14 @@ export default function Activate() {
       try {
         await apiRequest(`/auth/activate/${token}`, { method: 'GET' });
         setStatus('ok');
+
+        navigate('/', { replace: true });
       } catch (e) {
         setError(e.message || 'Activation failed');
         setStatus('error');
       }
     })();
-  }, [token]);
+  }, [token, navigate]);
 
   if (status === 'loading') return <div>Activating...</div>;
 
@@ -33,10 +36,6 @@ export default function Activate() {
   }
 
   return (
-    <div>
-      <h1>Account activated</h1>
-      <p>You can login now.</p>
-      <Link to="/login">Go to login</Link>
-    </div>
+   <div>Activated. Redirecting...</div>
   );
 }
